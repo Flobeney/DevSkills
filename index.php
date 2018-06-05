@@ -5,6 +5,7 @@ Auteur : Florent BENEY
 Date de création : 04.06.2018
 Description : Cette page permet à l'utilisateur de se connecter à son compte
 */
+//Intégrer les fonctions PHP
 require 'functPHP/functions.php';
 
 //Si l'utilisateur est déjà connecté
@@ -18,13 +19,14 @@ $nom = (isset($_GET['nom'])) ? $_GET['nom'] : "";
 $erreur;
 $redirectionURL;
 
+//Lors du click sur le bouton 'Connexion'
 if(filter_has_var(INPUT_POST, 'connexion')){
 
     //Récupérer les infos
     $nom = trim(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING));
     $motDePasse = trim(filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_STRING));
 
-    //Vérifier que aucun champ n'est vide
+    //Vérifier qu'aucun champ ne soit vide
     if($nom != "" && $motDePasse != ""){
         //Hasher le mot de passe en sha256 avec le Salt
         $motDePasse = hash('sha256', (SALT . $motDePasse));

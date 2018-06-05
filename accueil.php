@@ -5,6 +5,7 @@ Auteur : Florent BENEY
 Date de création : 04.06.2018
 Description : Cette page affiche les différentes catégories de tutoriel disponible
 */
+//Intégrer les fonctions PHP
 require 'functPHP/functions.php';
 
 //Si l'utilisateur n'est pas connecté
@@ -12,6 +13,8 @@ if(!($_SESSION['logged'])){
     header('location:index.php');
     exit();
 }
+
+$categories = GetCategories();
 
 ?>
 <!DOCTYPE html>
@@ -57,7 +60,7 @@ if(!($_SESSION['logged'])){
     </div>
     <!-- Fin section header -->
 
-    <!-- Début section explication du site -->
+    <!-- Début section explication de la page -->
     <div id="about" class="paddsection">
         <div class="container">
             <div class="row justify-content-between">
@@ -69,8 +72,7 @@ if(!($_SESSION['logged'])){
                             DevSkills ? C'est quoi ?
                         </p>
                         <p class="separator">
-                            DevSkills est un site Internet regroupant des tutoriels sur différents sujets informatiques.
-                            Pour pouvoir en profiter, il vous suffit de posséder un compte, et vous aurez accès aux tutoriels disponibles sur le site
+                            Vous voilà connecté ! Vous pouvez maintenant profiter des tutoriels présents sur le site
                         </p>
 
                     </div>
@@ -79,7 +81,52 @@ if(!($_SESSION['logged'])){
             </div>
         </div>
     </div>
-    <!-- Fin section explication du site -->
+    <!-- Fin section explication de la page -->
+
+    <!-- Début section catégories -->
+    <div id="journal" class="text-left paddsection">
+
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Catégories</h2>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="journal-block">
+                <div class="row">
+
+                    <?php foreach ($categories as $value) { ?>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="journal-info text-center">
+
+                                <a href="categorie.php?idCategorie=<?php echo $value['id']; ?>" title="Parcourir les tutoriels de la catégorie <?php echo $value['nom']; ?>">
+                                    <img src="<?php echo $value['lienImage']; ?>" class="img-responsive" alt="Image de la catégorie <?php echo $value['nom']; ?>">
+                                </a>
+
+                                <div class="journal-txt text-center">
+                                    <h4>
+                                        <a href="categorie.php?idCategorie=<?php echo $value['id']; ?>" title="Parcourir les tutoriels de la catégorie <?php echo $value['nom']; ?>">
+                                            <?php echo $value['nom']; ?>
+                                        </a>
+                                    </h4>
+                                    <p class="separator">
+                                        <?php echo $value['description']; ?>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    <?php } ?>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Fin section catégories -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>

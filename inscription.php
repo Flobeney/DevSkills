@@ -5,6 +5,7 @@ Auteur : Florent BENEY
 Date de création : 04.06.2018
 Description : Cette page permet à l'utilisateur de s'inscrire
 */
+//Intégrer les fonctions PHP
 require 'functPHP/functions.php';
 
 //Si l'utilisateur est déjà connecté
@@ -19,6 +20,7 @@ $email;
 $erreur;
 $succes;
 
+//Lors du click sur le bouton 'Inscription'
 if(filter_has_var(INPUT_POST, 'inscription')){
 
     //Récupérer les infos
@@ -27,20 +29,25 @@ if(filter_has_var(INPUT_POST, 'inscription')){
     $motDePasse = trim(filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_STRING));
     $motDePasseRepete = trim(filter_input(INPUT_POST, 'motDePasseRepete', FILTER_SANITIZE_STRING));
 
-    //Vérifier que aucun champ n'est vide
+    //Vérifier qu'aucun champ ne soit vide
     if($email != "" && $nom != "" && $motDePasse != "" && $motDePasseRepete != ""){
         //Vérifier que l'email n'est pas utilisé
         if(EmailDispo($email)){
-            //Vérifier que les deux mots de passe corresponde
-            if($motDePasse === $motDePasseRepete){
-                //Hasher le mot de passe en sha256 avec le Salt
-                $motDePasse = hash('sha256', (SALT . $motDePasse));
-                //Ajouter l'utilisateur à la base (créer le compte)
-                InsererUtilisateur($nom, $email, $motDePasse);
-                //Afficher le message de succès
-                $succes = "Votre compte a bien été créé. Veuillez suivre <a href=\"index.php?nom=".$nom."\">ce lien</a> pour vous connecter";
+            //Vérifier que le nom n'est pas utilisé
+            if(NomDispo($nom)){
+                //Vérifier que les deux mots de passe corresponde
+                if($motDePasse === $motDePasseRepete){
+                    //Hasher le mot de passe en sha256 avec le Salt
+                    $motDePasse = hash('sha256', (SALT . $motDePasse));
+                    //Ajouter l'utilisateur à la base (créer le compte)
+                    InsererUtilisateur($nom, $email, $motDePasse);
+                    //Afficher le message de succès
+                    $succes = "Votre compte a bien été créé. Veuillez suivre <a href=\"index.php?nom=".$nom."\">ce lien</a> pour vous connecter";
+                }else{
+                    $erreur = "Les deux mots de passe doivent correspondre";
+                }
             }else{
-                $erreur = "Les deux mots de passe doivent correspondre";
+                $erreur = "Vous ne pouvez pas utiliser ce nom";
             }
         }else{
             $erreur = "Vous ne pouvez pas utiliser cet email";

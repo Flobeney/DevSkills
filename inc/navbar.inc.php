@@ -15,6 +15,10 @@
                 <?php }
                 if($_SESSION['logged']){ ?>
                     <li><a href="monCompte.php">Bonjour <?php echo $_SESSION['nom']; ?></a></li>
+                    <?php if($_SESSION['admin']){ ?>
+                        <li><a href="admin.php">Admin</a></li>
+                    <?php } ?>
+                    <li><a href="accueil.php">Accueil</a></li>
                     <li><a href="logout.php">Se déconnecter</a></li>
                 <?php } ?>
             </ul>

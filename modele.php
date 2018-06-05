@@ -2,9 +2,10 @@
 /*
 Nom du fichier : index.php
 Auteur : Florent BENEY
-Date de création : 04.06.2018
+Date de création : 05.06.2018
 Description : Cette page permet à l'utilisateur de se connecter à son compte
 */
+//Intégrer les fonctions PHP
 require 'functPHP/functions.php';
 
 ?>
@@ -51,7 +52,7 @@ require 'functPHP/functions.php';
     </div>
     <!-- Fin section header -->
 
-    <!-- Début section explication du site -->
+    <!-- Début section explication de la page -->
     <div id="about" class="paddsection">
         <div class="container">
             <div class="row justify-content-between">
@@ -73,7 +74,7 @@ require 'functPHP/functions.php';
             </div>
         </div>
     </div>
-    <!-- Fin section explication du site -->
+    <!-- Fin section explication de la page -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>

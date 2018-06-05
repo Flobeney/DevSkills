@@ -1,9 +1,9 @@
 <?php
 /*
-Nom du fichier : admin.php
+Nom du fichier : gererCategories.php
 Auteur : Florent BENEY
-Date de création : 04.06.2018
-Description : Cette page affiche les différentes catégories de tutoriel disponible
+Date de création : 05.06.2018
+Description : Cette page permet à l'admin de gérer les catégories
 */
 //Intégrer les fonctions PHP
 require 'functPHP/functions.php';
@@ -20,6 +20,8 @@ if(!($_SESSION['admin'])){
     exit();
 }
 
+$categories = GetCategories();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +31,7 @@ if(!($_SESSION['admin'])){
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Admin - DevSkills</title>
+    <title>Catégories - Admin - DevSkills</title>
     <meta content="Site de tutoriels informatiques" name="description">
 
     <!-- Début CSS -->
@@ -73,10 +75,11 @@ if(!($_SESSION['admin'])){
                     <div class="about-descr">
 
                         <p class="p-heading">
-                            Administration
+                            Gestion des catégories
                         </p>
                         <p class="separator">
-                            Cette page, réservée aux administrateurs du site, leur permettent d'accéder aux différentes pages de gestion du site
+                            Cette page vous permet de gérer les différentes catégories auxquelles les tutoriels peuvent appartenir
+                            <br><a href="admin.php">Retour à l'administration</a>
                         </p>
 
                     </div>
@@ -87,46 +90,57 @@ if(!($_SESSION['admin'])){
     </div>
     <!-- Fin section explication de la page -->
 
-    <!-- Début section administration -->
+    <!-- Début section catégories -->
     <div id="journal" class="text-left paddsection">
 
         <div class="container">
             <div class="section-title text-center">
-                <h2>Administration</h2>
+                <h2>Catégories</h2>
+                <p>
+                    Suivez <a href="editerCategorie.php">ce lien</a> pour ajouter une catégorie
+                </p>
             </div>
         </div>
 
         <div class="container">
-            <div class="journal-block text-center">
+            <div class="journal-block">
                 <div class="row">
 
-                    <div class="col-lg-6 col-md-8">
-                        <div class="journal-info">
-                            <div class="journal-txt text-center">
-                                <a href="gererCategories.php" class="btn btn-defeault btn-send">Catégories</a>
-                                <p class="separator">
-                                    Accéder à la gestion des catégories
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php foreach ($categories as $value) { ?>
 
-                    <div class="col-lg-6 col-md-8">
-                        <div class="journal-info">
-                            <div class="journal-txt text-center">
-                                <a href="blog-single.php" class="btn btn-defeault btn-send">SO LETS MAKE THE MOST IS BEAUTIFUL</a>
-                                <p class="separator">To an English person, it will seem like simplified English
-                                </p>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="journal-info text-center">
+
+                                <a href="editerCategorie.php?idCategorie=<?php echo $value['id']; ?>" title="Modifier la catégorie <?php echo $value['nom']; ?>">
+                                    <img src="<?php echo $value['lienImage']; ?>" class="img-responsive" alt="Image de la catégorie <?php echo $value['nom']; ?>">
+                                </a>
+
+                                <div class="journal-txt text-center">
+                                    <h4>
+                                        <a href="editerCategorie.php?idCategorie=<?php echo $value['id']; ?>" title="Modifier la catégorie <?php echo $value['nom']; ?>">
+                                            <?php echo $value['nom']; ?>
+                                        </a>
+                                    </h4>
+                                    <p class="separator">
+                                        <?php echo $value['description']; ?>
+                                        <br>Appuyez sur la catégorie pour la modifier, ou suivez
+                                        <a href="supprimerCategorie.php?idCategorie=<?php echo $value['id']; ?>" title="Supprimer la catégorie <?php echo $value['nom']; ?>">
+                                            ce lien
+                                        </a> pour la supprimer
+                                    </p>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
+
+                    <?php } ?>
 
                 </div>
             </div>
         </div>
 
     </div>
-    <!-- Fin section administration -->
+    <!-- Fin section catégories -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>
