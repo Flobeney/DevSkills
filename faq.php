@@ -1,24 +1,12 @@
 <?php
 /*
-Nom du fichier : admin.php
+Nom du fichier : faq.php
 Auteur : Florent BENEY
-Date de création : 04.06.2018
-Description : Cette page affiche les différentes catégories de tutoriel disponible
+Date de création : 06.06.2018
+Description : Cette page permet à l'utilisateur de consulter la FAQ du site
 */
 //Intégrer les fonctions PHP
 require 'functPHP/functions.php';
-
-//Si l'utilisateur n'est pas connecté
-if(!($_SESSION['logged'])){
-    header('location:index.php');
-    exit();
-}
-
-//Si l'utilisateur n'est pas admin
-if(!($_SESSION['admin'])){
-    header('location:accueil.php');
-    exit();
-}
 
 ?>
 <!DOCTYPE html>
@@ -29,7 +17,7 @@ if(!($_SESSION['admin'])){
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Admin - DevSkills</title>
+    <title>FAQ - DevSkills</title>
     <meta content="Site de tutoriels informatiques" name="description">
 
     <!-- Début CSS -->
@@ -73,10 +61,10 @@ if(!($_SESSION['admin'])){
                     <div class="about-descr">
 
                         <p class="p-heading">
-                            Administration
+                            FAQ de DevSkills
                         </p>
                         <p class="separator">
-                            Cette page, réservée aux administrateurs du site, leur permettent d'accéder aux différentes pages de gestion du site
+                            Cette page vous permet de consulter la FAQ de DevSkills
                         </p>
 
                     </div>
@@ -87,47 +75,21 @@ if(!($_SESSION['admin'])){
     </div>
     <!-- Fin section explication de la page -->
 
-    <!-- Début section administration -->
-    <div id="journal" class="text-left paddsection">
-
+    <!-- Début section FAQ -->
+    <div id="about" class="paddsection">
         <div class="container">
-            <div class="section-title text-center">
-                <h2>Administration</h2>
-            </div>
-        </div>
+            <div class="row justify-content-between">
 
-        <div class="container">
-            <div class="journal-block text-center">
-                <div class="row">
-
-                    <div class="col-lg-6 col-md-8">
-                        <div class="journal-info">
-                            <div class="journal-txt text-center">
-                                <a href="gererCategories.php" class="btn btn-defeault btn-send">Catégories</a>
-                                <p class="separator">
-                                    Accéder à la gestion des catégories
-                                </p>
-                            </div>
-                        </div>
+                <div class="col-lg-12">
+                    <div style="width: 100%; height: 100%">
+                        <embed src="inc/ModeEmploi.pdf" width="100%" height="100%" type='application/pdf'>
                     </div>
-
-                    <div class="col-lg-6 col-md-8">
-                        <div class="journal-info">
-                            <div class="journal-txt text-center">
-                                <a href="gererTutoriels.php" class="btn btn-defeault btn-send">Tutoriels</a>
-                                <p class="separator">
-                                    Accéder à la gestion des tutoriels
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
             </div>
         </div>
-
     </div>
-    <!-- Fin section administration -->
+    <!-- Fin section FAQ -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>

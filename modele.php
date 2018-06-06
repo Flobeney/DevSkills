@@ -2,7 +2,7 @@
 /*
 Nom du fichier : index.php
 Auteur : Florent BENEY
-Date de création : 05.06.2018
+Date de création : 06.06.2018
 Description : Cette page permet à l'utilisateur de se connecter à son compte
 */
 //Intégrer les fonctions PHP

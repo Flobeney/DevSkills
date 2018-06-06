@@ -1,10 +1,10 @@
 <?php
 /*
-Nom du fichier : editerCategorie.php
+Nom du fichier : editerTutoriel.php
 Auteur : Florent BENEY
-Date de création : 05.06.2018
-Description : Cette page permet à l'admin d'ajouter une catégorie,
-ou d'en modifier une existante
+Date de création : 06.06.2018
+Description : Cette page permet à l'admin d'ajouter un tutoriel,
+ou d'en modifier un existant
 */
 //Intégrer les fonctions PHP
 require 'functPHP/functions.php';
@@ -22,51 +22,52 @@ if(!($_SESSION['admin'])){
 }
 
 //Variables
+$categories = GetCategories();
 $succes;
 $erreur;
 $ajout = true;
-$lienImageCategorie;
-$descriptionCategorie;
-$nomCategorie;
-$idCategorie;
-if(isset($_GET['idCategorie'])){
+$titreTutoriel;
+$contenuTutoriel;
+$categorieTutoriel;
+$idTutoriel;
+if(isset($_GET['idTutoriel'])){
     $ajout = false;
-    //Récupérer la catégorie à modifier
-    $idCategorie = filter_input(INPUT_GET, 'idCategorie', FILTER_VALIDATE_INT);
-    $categorie = GetCategorie($idCategorie)[0];
-    $nomCategorie = $categorie['nom'];
-    $lienImageCategorie = $categorie['lienImage'];
-    $descriptionCategorie = $categorie['description'];
+    //Récupérer le tutoriel à modifier
+    $idTutoriel = filter_input(INPUT_GET, 'idTutoriel', FILTER_VALIDATE_INT);
+    $tutoriel = GetTutoriel($idTutoriel)[0];
+    $titreTutoriel = $tutoriel['titre'];
+    $contenuTutoriel = $tutoriel['contenu'];
+    $categorieTutoriel = $tutoriel['idCategorie'];
 }
 
 //Lors du click sur le bouton 'Editer'
 if(filter_has_var(INPUT_POST, 'editer')){
 
     //Récupérer les infos
-    $nomCategorie = trim(filter_input(INPUT_POST, 'nomCategorie', FILTER_SANITIZE_STRING));
-    $lienImageCategorie = trim(filter_input(INPUT_POST, 'lienImageCategorie', FILTER_SANITIZE_STRING));
-    $descriptionCategorie = trim(filter_input(INPUT_POST, 'descriptionCategorie', FILTER_SANITIZE_STRING));
+    $titreTutoriel = trim(filter_input(INPUT_POST, 'titreTutoriel', FILTER_SANITIZE_STRING));
+    $contenuTutoriel = trim(filter_input(INPUT_POST, 'contenuTutoriel', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $categorieTutoriel = trim(filter_input(INPUT_POST, 'categorieTutoriel', FILTER_VALIDATE_INT));
 
     //Vérifier qu'aucun champ ne soit vide
-    if($nomCategorie != "" && $lienImageCategorie != "" && $descriptionCategorie != ""){
+    if($titreTutoriel != "" && $contenuTutoriel != "" && $categorieTutoriel != ""){
         //Si c'est un ajout
         if($ajout){
-            InsererCategorie($nomCategorie, $lienImageCategorie, $descriptionCategorie);
+            InsererTutoriel($titreTutoriel, $contenuTutoriel, $categorieTutoriel);
             //Afficher le message de succès
-            $succes = "La catégorie a bien été ajoutée. <a href=\"gererCategories.php\">Retour aux catégories</a>";
+            $succes = "Le tutoriel a bien été ajouté. <a href=\"gererTutoriels.php\">Retour aux tutoriels</a>";
             //Remettre les variables à une valeur nulle
-            $lienImageCategorie = "";
-            $descriptionCategorie = "";
-            $nomCategorie = "";
+            $titreTutoriel = "";
+            $contenuTutoriel = "";
+            $categorieTutoriel = "";
         }else{
             //Sinon c'est une modification
-            MajCategorie($idCategorie, $nomCategorie, $descriptionCategorie, $lienImageCategorie);
+            MajTutoriel($idTutoriel, $titreTutoriel, $contenuTutoriel, $categorieTutoriel);
             //Afficher le message de succès
-            $succes = "La catégorie a bien été modifiée. <a href=\"gererCategories.php\">Retour aux catégories</a>";
+            $succes = "Le tutoriel a bien été modifié. <a href=\"gererTutoriels.php\">Retour aux tutoriels</a>";
             //Remettre les variables à une valeur nulle
-            $lienImageCategorie = "";
-            $descriptionCategorie = "";
-            $nomCategorie = "";
+            $titreTutoriel = "";
+            $contenuTutoriel = "";
+            $categorieTutoriel = "";
             $ajout = true;
         }
     }
@@ -82,12 +83,16 @@ if(filter_has_var(INPUT_POST, 'editer')){
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title><?php echo ($ajout) ? "Ajout" : "Modifier"; ?> catégorie - DevSkills</title>
+    <title><?php echo ($ajout) ? "Ajout" : "Modifier"; ?> tutoriel - DevSkills</title>
     <meta content="Site de tutoriels informatiques" name="description">
 
     <!-- Début CSS -->
     <?php include 'inc/templateCSS.inc.php'; ?>
     <!-- Fin CSS -->
+
+    <!-- Début Trumbowyg -->
+    <?php include 'trumbowyg/inc/trumbowygCSS.inc.php'; ?>
+    <!-- Fin Trumbowyg -->
 
     <!-- Logo de la page -->
     <link rel="shortcut icon" href="img/logoDevSkills.png">
@@ -126,13 +131,13 @@ if(filter_has_var(INPUT_POST, 'editer')){
                     <div class="about-descr">
 
                         <p class="p-heading">
-                            <?php echo ($ajout) ? "Ajout d'une catégorie" : "Modification d'une catégorie"; ?>
+                            <?php echo ($ajout) ? "Ajout d'un tutoriel" : "Modification d'un tutoriel"; ?>
                         </p>
                         <p class="separator">
                             <?php
                             echo ($ajout)
-                            ? "Cette page permet d'ajout une nouvelle catégorie à laquelle les tutoriels pourront enusite faire parti"
-                            : "Cette page permet de modifier une catégorie existante"; ?>
+                            ? "Cette page permet d'ajout un nouveau tutoriel"
+                            : "Cette page permet de modifier un tutoriel existant"; ?>
                         </p>
 
                     </div>
@@ -143,7 +148,7 @@ if(filter_has_var(INPUT_POST, 'editer')){
     </div>
     <!-- Fin section explication de la page -->
 
-    <!-- Début section ajouter / modifier catégorie -->
+    <!-- Début section ajouter / modifier tutoriel -->
     <div id="contact" class="paddsection">
         <div class="container">
             <div class="contact-block1">
@@ -151,7 +156,7 @@ if(filter_has_var(INPUT_POST, 'editer')){
 
                     <div class="col-lg-12">
                         <div class="container">
-                            <h1><?php echo ($ajout) ? "Ajouter une " : "Modifier une "; ?> catégorie</h1>
+                            <h1><?php echo ($ajout) ? "Ajouter un " : "Modifier un "; ?> tutoriel</h1>
                             <br>
                         </div>
 
@@ -167,24 +172,32 @@ if(filter_has_var(INPUT_POST, 'editer')){
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="nomCategorie" placeholder="Nom de la catégorie" value="<?php echo $nomCategorie; ?>" required>
+                                        <input type="text" class="form-control" name="titreTutoriel" placeholder="Titre du tutoriel" value="<?php echo $titreTutoriel; ?>" required>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="lienImageCategorie" placeholder="Lien de l'image de la catégorie" value="<?php echo $lienImageCategorie; ?>" required>
+                                        <label for="contenuTutoriel">Contenu du tutoriel</label>
+                                        <textarea id="TrumbowygEditor" class="form-control" name="contenuTutoriel" placeholder="Contenu du tutoriel" cols="50" required>
+                                            <?php echo html_entity_decode($contenuTutoriel); ?>
+                                        </textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="descriptionCategorie" placeholder="Description de la catégorie" cols="50" required><?php echo $descriptionCategorie; ?></textarea>
+                                        <label for="categorieTutoriel">Catégorie du tutoriel</label>
+                                        <select name="categorieTutoriel" style="width : 100%">
+                                            <?php foreach ($categories as $value) { ?>
+                                                <option value="<?php echo $value['id']; ?>" <?php echo ($value['id'] == $categorieTutoriel) ? "selected" : "";?>><?php echo $value['nom']; ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
-                                    <a href="gererCategories.php" class="btn btn-defeault btn-send">Retour</a>
+                                    <a href="gererTutoriels.php" class="btn btn-defeault btn-send">Retour</a>
                                 </div>
 
                                 <div class="col-lg-6">
@@ -198,7 +211,7 @@ if(filter_has_var(INPUT_POST, 'editer')){
             </div>
         </div>
     </div>
-    <!-- Fin section ajouter / modifier catégorie -->
+    <!-- Fin section ajouter / modifier tutoriel -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>
@@ -207,6 +220,10 @@ if(filter_has_var(INPUT_POST, 'editer')){
     <!-- Début JS -->
     <?php include 'inc/templateJS.inc.php'; ?>
     <!-- Fin JS -->
+
+    <!-- Début Trumbowyg -->
+    <?php include 'trumbowyg/inc/trumbowygJS.inc.php'; ?>
+    <!-- Fin Trumbowyg -->
 
 </body>
 

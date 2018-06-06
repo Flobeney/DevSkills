@@ -130,7 +130,7 @@ function GetInfosUtilisateur($id){
 /**
 * Récupère les catégories
 *
-* Récupère dans la table 'categorie' les différentes catégories contenue en base
+* Récupère dans la table 'categorie' les différentes catégories contenues en base
 *
 * @return array {id; nom; description; lienImage} contenant les catégories
 */
@@ -152,6 +152,7 @@ function GetCategories(){
 *
 * Récupère dans la table 'categorie' une catégorie en fonction de l'id reçu comme paramètre
 *
+* @param int ID de la catégorie
 * @return array {nom; description; lienImage} contenant la catégorie
 */
 function GetCategorie($id){
@@ -167,32 +168,71 @@ function GetCategorie($id){
     return $sth->fetchAll(PDO::FETCH_ASSOC);
 }
 
-/*
-//Fonction pour récupérer tout les posts
-function GetPosts(){
-    $req = "SELECT commentaire, nomFichierMedia, datePost, post.idPost, typeMedia, dateLastEdit, name, users.idUser
-    FROM `post`, `media`, `users`
-    WHERE post.idPost = media.idPost
-    AND post.idUser = users.idUser
-    ORDER BY datePost DESC";
+/**
+* Récupère les tutoriels
+*
+* Récupère dans la table 'tutoriel' les différents tutoriels contenus en base
+*
+* @return array {id; titre; nom; lienImage} contenant les tutoriels
+*/
+function GetTutoriels(){
+    //Construire la requête
+    $req = "SELECT tutoriel.id, titre, nom, lienImage
+    FROM `tutoriel`, `categorie`
+    WHERE idCategorie = categorie.id
+    ORDER BY titre";
+    //La préparer
     $sth = connecteur()->prepare($req);
+    //L'exécuter
     $sth->execute();
-    return $sth->fetchAll();
-    //return $sth->fetchAll(PDO::FETCH_ASSOC);
+    //Récupérer le résultat
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//Fonction pour récupérer un post en fonction de son id
-function GetPost($id){
-    $req = "SELECT commentaire, nomFichierMedia, typeMedia, post.idPost, datePost, dateLastEdit
-    FROM `post`, `media`
-    WHERE post.idPost = media.idPost
-    AND post.idPost = :id";
-    $sth = connecteur()->prepare($req);
-    $sth->execute(array(':id' => $id));
-    return $sth->fetchAll();
-    //return $sth->fetchAll(PDO::FETCH_ASSOC);
-}
+/**
+* Récupère un tutoriel
+*
+* Récupère dans la table 'tutoriel' une tutoriel en fonction de l'id reçu comme paramètre
+*
+* @param int ID du tutoriel
+* @return array {titre; contenu; idCategorie} contenant le tutoriel
 */
+function GetTutoriel($id){
+    //Construire la requête
+    $req = "SELECT titre, contenu, idCategorie
+    FROM `tutoriel`
+    WHERE id = :id";
+    //La préparer
+    $sth = connecteur()->prepare($req);
+    //L'exécuter
+    $sth->execute(array(':id' => $id));
+    //Récupérer le résultat
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+* Récupère les tutoriels d'une catégorie
+*
+* Récupère dans la table 'tutoriel' les tutoriels d'une catégorie contenus en base
+*
+* @param int ID de la catégorie
+* @return array {id; titre; nom; lienImage} contenant les tutoriels
+*/
+function GetTutorielByCategorie($id){
+    //Construire la requête
+    $req = "SELECT tutoriel.id, titre, nom, lienImage
+    FROM `tutoriel`, `categorie`
+    WHERE idCategorie = categorie.id
+    AND categorie.id = :id
+    ORDER BY titre";
+    //La préparer
+    $sth = connecteur()->prepare($req);
+    //L'exécuter
+    $sth->execute(array(':id' => $id));
+    //Récupérer le résultat
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
+}
+
 //Fin
 
 //Fonctions Insert
@@ -235,15 +275,25 @@ function InsererCategorie($nomCategorie, $lienImageCategorie, $descriptionCatego
     $sth->fetch();
 }
 
-/*
-//Fonction pour insérer un commentaire
-function InsertComm($comm, $idUser, $idPost){
-    $sql = "INSERT INTO `comment` (`idComment`, `comment`, `idUser`, `idPost`) VALUES (null, :comm, :idUser, :idPost)";
+/**
+* Insère un nouveau tutoriel
+*
+* Insère un nouvel enregistrement dans la table 'tutoriel'
+*
+* @param string Titre du tutoriel
+* @param string Contenu du tutoriel
+* @param int ID de la catégorie du tutoriel
+*/
+function InsererTutoriel($titreTutoriel, $contenuTutoriel, $categorieTutoriel){
+    //Construire la requête
+    $sql = "INSERT INTO `tutoriel` (`id`, `titre`, `contenu`, `idCategorie`) VALUES (null, :titre, :contenu, :idCategorie)";
+    //La préparer
     $sth = connecteur()->prepare($sql);
-    $sth->execute(array(':comm' => $comm, ':idUser' => $idUser, ':idPost' => $idPost));
+    //L'exécuter
+    $sth->execute(array(':titre' => $titreTutoriel, ':contenu' => $contenuTutoriel, ':idCategorie' => $categorieTutoriel));
     $sth->fetch();
 }
-*/
+
 //Fin
 
 //Fonctions Update
@@ -307,15 +357,26 @@ function MajCategorie($id, $nom, $description, $lienImage){
     $sth->fetch();
 }
 
-/*
-//Fonction pour mettre à jour un post
-function UpdatePost($id, $comm){
-    $sql = "UPDATE " . DB_NAME . ".`post` SET `commentaire` = :comm, `dateLastEdit`= (SELECT NOW()) WHERE `post`.`idPost` =:id";
+/**
+* Met à jour un tutoriel
+*
+* Récupère les informations entrées par l'utilisateur et met le tutoriel à jour dans la base
+*
+* @param int ID du tutoriel
+* @param string Titre du tutoriel
+* @param string Contenu du tutoriel
+* @param int ID de la catégorie du tutoriel
+*/
+function MajTutoriel($id, $titreTutoriel, $contenuTutoriel, $categorieTutoriel){
+    //Construire la requête
+    $sql = "UPDATE " . DB_NAME . ".`tutoriel` SET `titre` = :titre, `contenu` = :contenu, `idCategorie` = :categorieTutoriel WHERE `tutoriel`.`id` =:id";
+    //La préparer
     $sth = connecteur()->prepare($sql);
-    $sth->execute(array(':comm' => $comm, ':id' => $id));
+    //L'exécuter
+    $sth->execute(array(':titre' => $titreTutoriel, ':contenu' => $contenuTutoriel, ':categorieTutoriel' => $categorieTutoriel, ':id' => $id));
     $sth->fetch();
 }
-*/
+
 //Fin
 
 //Fonctions Delete
@@ -328,21 +389,32 @@ function UpdatePost($id, $comm){
 * @param int ID de la catégorie
 */
 function SupprimerCategorie($idCategorie){
+    //Construire la requête
     $sql = "DELETE FROM " . DB_NAME . ".`categorie` WHERE `id` = :id";
+    //La préparer
     $sth = connecteur()->prepare($sql);
+    //L'exécuter
     $sth->execute(array(':id' => $idCategorie));
     $sth->fetch();
 }
 
-/*
-//Fonction pour supprimer un commentaire
-function DelComm($idComm, $idUser){
-    $sql = "DELETE FROM " . DB_NAME . ".`comment` WHERE `idUser` = :idUser AND `idComment` = :idComment";
+/**
+* Supprime un tutoriel
+*
+* Dans la table 'tutoriel', supprime le tutoriel correspondant à l'id reçu en paramètre
+*
+* @param int ID du tutoriel
+*/
+function SupprimerTutoriel($idTutoriel){
+    //Construire la requête
+    $sql = "DELETE FROM " . DB_NAME . ".`tutoriel` WHERE `id` = :id";
+    //La préparer
     $sth = connecteur()->prepare($sql);
-    $sth->execute(array(':idUser' => $idUser, ':idComment' => $idComm));
+    //L'exécuter
+    $sth->execute(array(':id' => $idTutoriel));
     $sth->fetch();
 }
-*/
+
 //Fin
 
 ?>

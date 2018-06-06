@@ -215,7 +215,11 @@ if(filter_has_var(INPUT_POST, 'modifier')){
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <a href="accueil.php" class="btn btn-defeault btn-send">Retour à l'accueil</a>
+                                </div>
+
+                                <div class="col-lg-6">
                                     <input type="submit" class="btn btn-defeault btn-send" value="Modifier" name="modifier">
                                 </div>
 

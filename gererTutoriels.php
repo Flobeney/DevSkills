@@ -1,9 +1,9 @@
 <?php
 /*
-Nom du fichier : admin.php
+Nom du fichier : gererTutoriels.php
 Auteur : Florent BENEY
-Date de création : 04.06.2018
-Description : Cette page affiche les différentes catégories de tutoriel disponible
+Date de création : 06.06.2018
+Description : Cette page permet à l'admin de gérer les tutoriels
 */
 //Intégrer les fonctions PHP
 require 'functPHP/functions.php';
@@ -20,6 +20,9 @@ if(!($_SESSION['admin'])){
     exit();
 }
 
+//Variables
+$tutoriels = GetTutoriels();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +32,7 @@ if(!($_SESSION['admin'])){
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Admin - DevSkills</title>
+    <title>Tutoriels - Admin - DevSkills</title>
     <meta content="Site de tutoriels informatiques" name="description">
 
     <!-- Début CSS -->
@@ -73,10 +76,11 @@ if(!($_SESSION['admin'])){
                     <div class="about-descr">
 
                         <p class="p-heading">
-                            Administration
+                            Gestion des tutoriels
                         </p>
                         <p class="separator">
-                            Cette page, réservée aux administrateurs du site, leur permettent d'accéder aux différentes pages de gestion du site
+                            Cette page vous permet de gérer les différents tutoriels présents sur le site
+                            <br><a href="admin.php">Retour à l'administration</a>
                         </p>
 
                     </div>
@@ -87,47 +91,56 @@ if(!($_SESSION['admin'])){
     </div>
     <!-- Fin section explication de la page -->
 
-    <!-- Début section administration -->
+    <!-- Début section tutoriels -->
     <div id="journal" class="text-left paddsection">
 
         <div class="container">
             <div class="section-title text-center">
-                <h2>Administration</h2>
+                <h2>Tutoriels</h2>
+                <p>
+                    Suivez <a href="editerTutoriel.php">ce lien</a> pour ajouter un tutoriel
+                </p>
             </div>
         </div>
 
         <div class="container">
-            <div class="journal-block text-center">
+            <div class="journal-block">
                 <div class="row">
 
-                    <div class="col-lg-6 col-md-8">
-                        <div class="journal-info">
-                            <div class="journal-txt text-center">
-                                <a href="gererCategories.php" class="btn btn-defeault btn-send">Catégories</a>
-                                <p class="separator">
-                                    Accéder à la gestion des catégories
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php foreach ($tutoriels as $value) { ?>
 
-                    <div class="col-lg-6 col-md-8">
-                        <div class="journal-info">
-                            <div class="journal-txt text-center">
-                                <a href="gererTutoriels.php" class="btn btn-defeault btn-send">Tutoriels</a>
-                                <p class="separator">
-                                    Accéder à la gestion des tutoriels
-                                </p>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="journal-info text-center">
+
+                                <a href="editerTutoriel.php?idTutoriel=<?php echo $value['id']; ?>" title="Modifier le tutoriel <?php echo $value['titre']; ?>">
+                                    <img src="<?php echo $value['lienImage']; ?>" class="img-responsive" alt="Image de la catégorie <?php echo $value['nom']; ?>">
+                                </a>
+
+                                <div class="journal-txt text-center">
+                                    <h4>
+                                        <a href="editerTutoriel.php?idTutoriel=<?php echo $value['id']; ?>" title="Modifier le tutoriel <?php echo $value['titre']; ?>">
+                                            <?php echo $value['titre']; ?>
+                                        </a>
+                                    </h4>
+                                    <p class="separator">
+                                        Appuyez sur le tutoriel pour le modifier, ou suivez
+                                        <a href="supprimerTutoriel.php?idTutoriel=<?php echo $value['id']; ?>" title="Supprimer le tutoriel <?php echo $value['titre']; ?>">
+                                            ce lien
+                                        </a> pour le supprimer
+                                    </p>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
+
+                    <?php } ?>
 
                 </div>
             </div>
         </div>
 
     </div>
-    <!-- Fin section administration -->
+    <!-- Fin section tutoriels -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>
