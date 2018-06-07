@@ -14,6 +14,7 @@ if(!($_SESSION['logged'])){
     exit();
 }
 
+//Variables
 $categories = GetCategories();
 
 ?>
@@ -50,14 +51,7 @@ $categories = GetCategories();
     <!-- Fin barre de navigation -->
 
     <!-- Début section header -->
-    <div class="home">
-        <div class="container">
-            <div class="header-content">
-                <h1>DevSkills</h1>
-                <p>Site de tutoriels informatiques</p>
-            </div>
-        </div>
-    </div>
+    <?php include 'inc/header.inc.php'; ?>
     <!-- Fin section header -->
 
     <!-- Début section explication de la page -->
@@ -69,7 +63,7 @@ $categories = GetCategories();
                     <div class="about-descr">
 
                         <p class="p-heading">
-                            DevSkills ? C'est quoi ?
+                            Bienvenu sur DevSkills !
                         </p>
                         <p class="separator">
                             Vous voilà connecté ! Vous pouvez maintenant profiter des tutoriels présents sur le site

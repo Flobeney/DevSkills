@@ -42,14 +42,7 @@ require 'functPHP/functions.php';
     <!-- Fin barre de navigation -->
 
     <!-- Début section header -->
-    <div class="home">
-        <div class="container">
-            <div class="header-content">
-                <h1>DevSkills</h1>
-                <p>Site de tutoriels informatiques</p>
-            </div>
-        </div>
-    </div>
+    <?php include 'inc/header.inc.php'; ?>
     <!-- Fin section header -->
 
     <!-- Début section explication de la page -->
@@ -64,7 +57,14 @@ require 'functPHP/functions.php';
                             FAQ de DevSkills
                         </p>
                         <p class="separator">
-                            Cette page vous permet de consulter la FAQ de DevSkills
+                            Cette page vous permet de consulter la FAQ de DevSkills<br>
+                            <?php
+                            //Si l'utilisateur est connecté
+                            if($_SESSION['logged']){ ?>
+                                <a href="accueil.php">Retour à l'accueil</a>
+                            <?php }else{ ?>
+                                Retour à la <a href="index.php">connexion</a> ou à <a href="inscription.php">l'inscription</a>
+                            <?php } ?>
                         </p>
 
                     </div>

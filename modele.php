@@ -2,7 +2,7 @@
 /*
 Nom du fichier : index.php
 Auteur : Florent BENEY
-Date de création : 06.06.2018
+Date de création : 07.06.2018
 Description : Cette page permet à l'utilisateur de se connecter à son compte
 */
 //Intégrer les fonctions PHP
@@ -42,14 +42,7 @@ require 'functPHP/functions.php';
     <!-- Fin barre de navigation -->
 
     <!-- Début section header -->
-    <div class="home">
-        <div class="container">
-            <div class="header-content">
-                <h1>DevSkills</h1>
-                <p>Site de tutoriels informatiques</p>
-            </div>
-        </div>
-    </div>
+    <?php include 'inc/header.inc.php'; ?>
     <!-- Fin section header -->
 
     <!-- Début section explication de la page -->

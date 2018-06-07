@@ -2,12 +2,7 @@
     <div class="container">
         <div class="socials-media text-center">
             <ul class="list-unstyled">
-                <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                <li><a href="#"><i class="ion-social-instagram"></i></a></li>
-                <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
-                <li><a href="#"><i class="ion-social-tumblr"></i></a></li>
-                <li><a href="#"><i class="ion-social-dribbble"></i></a></li>
+                <li><a href="#home" title="Haut de la page "><i class="ion-arrow-up-c"></i></a></li>
             </ul>
         </div>
 
@@ -21,6 +16,21 @@
             Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Folio
             -->
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            <br>
+            Nom du projet : DevSkills
+            <br>
+            Auteur : Florent Beney
+            <br>
+            Email : <a href="mailto:florent.bn@eduge.ch">florent.bn@eduge.ch</a>
+            <br>
+            Maître d'apprentissage : Julien Aliprandi
+            <br>
+            Email : <a href="mailto:julien.aliprandi@edu.ge.ch">julien.aliprandi@edu.ge.ch</a>
+            <br>
+            <a href="https://github.com/Flobeney/DevSkills" title="GitHub" onclick="window.open(this.href); return false;">GitHub du projet</a>
+            <br>
+            Site réalisé dans le cadre du TPI 2018
+            <br>
         </div>
 
     </div>

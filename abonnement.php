@@ -1,9 +1,9 @@
 <?php
 /*
-Nom du fichier : categorie.php
+Nom du fichier : abonnement.php
 Auteur : Florent BENEY
-Date de création : 06.06.2018
-Description : Cette page permet à l'utilisateur de consulter les tutoriels d'une catégorie
+Date de création : 07.06.2018
+Description : Cette page permet à l'utilisateur de voir les tutoriels auxquels il est abonné
 */
 //Intégrer les fonctions PHP
 require 'functPHP/functions.php';
@@ -15,9 +15,7 @@ if(!($_SESSION['logged'])){
 }
 
 //Variables
-$idCategorie = filter_input(INPUT_GET, 'idCategorie', FILTER_VALIDATE_INT);
-$tutoriels = GetTutorielByCategorie($idCategorie);
-$nomCategorie = $tutoriels[0]['nom'];
+$tutoriels = GetAbonnement($_SESSION['id']);
 $aucunTuto = (count($tutoriels) == 0) ? true : false;
 
 ?>
@@ -29,7 +27,7 @@ $aucunTuto = (count($tutoriels) == 0) ? true : false;
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Catégorie <?php echo $nomCategorie; ?> - DevSkills</title>
+    <title>Mes abonnements - DevSkills</title>
     <meta content="Site de tutoriels informatiques" name="description">
 
     <!-- Début CSS -->
@@ -66,18 +64,10 @@ $aucunTuto = (count($tutoriels) == 0) ? true : false;
                     <div class="about-descr">
 
                         <p class="p-heading">
-                            <?php if($aucunTuto){ ?>
-                                Aucun tutoriel
-                            <?php }else{ ?>
-                                Tutoriels de la catégorie <?php echo $nomCategorie; ?>
-                            <?php } ?>
+                            Abonnements
                         </p>
                         <p class="separator">
-                            <?php if($aucunTuto){ ?>
-                                Cette catégorie ne contient aucun tutoriel
-                            <?php }else{ ?>
-                                Cette page regroupe les tutoriels de la catégorie <?php echo $nomCategorie; ?>
-                            <?php } ?>
+                            Cette page vous permet de voir les différents tutoriels auxquels vous êtes abonnés
                             <br><a href="accueil.php">Retour à l'accueil</a>
                         </p>
 
@@ -89,12 +79,12 @@ $aucunTuto = (count($tutoriels) == 0) ? true : false;
     </div>
     <!-- Fin section explication de la page -->
 
-    <!-- Début section tutoriels -->
+    <!-- Début section abonnement aux tutoriels -->
     <div id="journal" class="text-left paddsection">
 
         <div class="container">
             <div class="section-title text-center">
-                <h2><?php echo ($aucunTuto) ? "Il n'y a aucun tutoriel de cette catégorie" : "Tutoriels de la catégorie $nomCategorie"; ?></h2>
+                <h2><?php echo ($aucunTuto) ? "Vous n'êtes abonné à aucun tutoriel" : "Abonnements"; ?></h2>
             </div>
         </div>
 
@@ -111,12 +101,13 @@ $aucunTuto = (count($tutoriels) == 0) ? true : false;
 
                                     <div class="journal-txt text-center">
                                         <h4>
-                                            <a href="tutoriel.php?idTutoriel=<?php echo $value['id']; ?>&retourAbo=0" title="Consulter le tutoriel <?php echo $value['titre']; ?>">
+                                            <a href="tutoriel.php?idTutoriel=<?php echo $value['id']; ?>&retourAbo=1" title="Consulter le tutoriel <?php echo $value['titre']; ?>">
                                                 <?php echo $value['titre']; ?>
                                             </a>
                                         </h4>
                                         <p class="separator">
-                                            Appuyez sur le tutoriel pour le consulter
+                                            Catégorie : <?php echo $value['nom']; ?>
+                                            <br>Appuyez sur le tutoriel pour le consulter
                                         </p>
                                     </div>
 
@@ -132,7 +123,7 @@ $aucunTuto = (count($tutoriels) == 0) ? true : false;
         <?php } ?>
 
     </div>
-    <!-- Fin section tutoriels -->
+    <!-- Fin section abonnement aux tutoriels -->
 
     <!-- Début pied de page -->
     <?php include 'inc/footer.inc.php'; ?>

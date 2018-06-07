@@ -92,14 +92,7 @@ if(filter_has_var(INPUT_POST, 'connexion')){
     <!-- Fin barre de navigation -->
 
     <!-- Début section header -->
-    <div class="home">
-        <div class="container">
-            <div class="header-content">
-                <h1>DevSkills</h1>
-                <p>Site de tutoriels informatiques</p>
-            </div>
-        </div>
-    </div>
+    <?php include 'inc/header.inc.php'; ?>
     <!-- Fin section header -->
 
     <!-- Début section explication du site -->

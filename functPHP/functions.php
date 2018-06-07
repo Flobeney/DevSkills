@@ -233,6 +233,58 @@ function GetTutorielByCategorie($id){
     return $sth->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+* Récupère un tutoriel et sait si l'utilisateur est abonné au tutoriel qu'il consulte
+*
+* Récupère dans la table 'tutoriel' une tutoriel en fonction de l'id reçu comme paramètre,
+* et informe si l'utilisateur est abonné au tutoriel en question
+*
+* @param int ID du tutoriel
+* @param int ID de l'utilisateur
+* @return array {titre; contenu; idCategorie; abonne} contenant le tutoriel
+*/
+function GetTutorielAvecAbo($idTutoriel, $idUtilisateur){
+    //Construire la requête
+    $req = "SELECT titre, contenu, idCategorie,
+    CASE
+        WHEN (SELECT COUNT(*) FROM abonnement WHERE idTutoriel = :idTutoriel AND idUtilisateur = :idUtilisateur) = 1 THEN 1
+        ELSE 0
+    END as abonne
+    FROM `tutoriel`
+    WHERE id = :idTutoriel";
+    //La préparer
+    $sth = connecteur()->prepare($req);
+    //L'exécuter
+    $sth->execute(array(':idTutoriel' => $idTutoriel, ':idUtilisateur' => $idUtilisateur));
+    //Récupérer le résultat
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+* Récupère les tutoriels auxquels un utilisateur est abonné
+*
+* Récupère dans la table 'tutoriel' les tutoriels auxquels un utilisateur est abonné contenus en base
+*
+* @param int ID de l'utilisateur
+* @return array {id; titre; nom; lienImage} contenant les tutoriels
+*/
+function GetAbonnement($idUtilisateur){
+    //Construire la requête
+    $req = "SELECT tutoriel.id, titre, categorie.nom
+    FROM `tutoriel`, `categorie`, `abonnement`, `utilisateur`
+    WHERE categorie.id = idCategorie
+    AND idUtilisateur = utilisateur.id
+    AND idTutoriel = tutoriel.id
+    AND utilisateur.id = :idUtilisateur
+    ORDER BY titre";
+    //La préparer
+    $sth = connecteur()->prepare($req);
+    //L'exécuter
+    $sth->execute(array(':idUtilisateur' => $idUtilisateur));
+    //Récupérer le résultat
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
+}
+
 //Fin
 
 //Fonctions Insert
@@ -291,6 +343,24 @@ function InsererTutoriel($titreTutoriel, $contenuTutoriel, $categorieTutoriel){
     $sth = connecteur()->prepare($sql);
     //L'exécuter
     $sth->execute(array(':titre' => $titreTutoriel, ':contenu' => $contenuTutoriel, ':idCategorie' => $categorieTutoriel));
+    $sth->fetch();
+}
+
+/**
+* Insère un nouvel abonnement
+*
+* Insère un nouvel abonnement dans la table 'abonnement'
+*
+* @param int ID du tutoriel
+* @param int ID de l'utilisateur
+*/
+function InsererAbonnement($idTutoriel, $idUtilisateur){
+    //Construire la requête
+    $sql = "INSERT INTO `abonnement` (`id`, `idTutoriel`, `idUtilisateur`) VALUES (null, :idTutoriel, :idUtilisateur)";
+    //La préparer
+    $sth = connecteur()->prepare($sql);
+    //L'exécuter
+    $sth->execute(array(':idTutoriel' => $idTutoriel, ':idUtilisateur' => $idUtilisateur));
     $sth->fetch();
 }
 
@@ -414,6 +484,35 @@ function SupprimerTutoriel($idTutoriel){
     $sth->execute(array(':id' => $idTutoriel));
     $sth->fetch();
 }
+
+/**
+* Supprime un abonnement
+*
+* Dans la table 'abonnement', supprime l'abonnement correspondant aux deux id
+* reçu en paramètre (celui du tutoriel et celui de l'utilisateur)
+*
+* @param int ID du tutoriel
+* @param int ID de l'utilisateur
+*/
+function SupprimerAbonnement($idTutoriel, $idUtilisateur){
+    //Construire la requête
+    $sql = "DELETE FROM " . DB_NAME . ".`abonnement` WHERE `idTutoriel` = :idTutoriel AND `idUtilisateur` = :idUtilisateur";
+    //La préparer
+    $sth = connecteur()->prepare($sql);
+    //L'exécuter
+    $sth->execute(array(':idTutoriel' => $idTutoriel, ':idUtilisateur' => $idUtilisateur));
+    $sth->fetch();
+}
+/*
+function InsererAbonnement($idTutoriel, $idUtilisateur){
+    //Construire la requête
+    $sql = "INSERT INTO `abonnement` (`id`, `idTutoriel`, `idUtilisateur`) VALUES (null, :idTutoriel, :idUtilisateur)";
+    //La préparer
+    $sth = connecteur()->prepare($sql);
+    //L'exécuter
+    $sth->execute(array(':idTutoriel' => $idTutoriel, ':idUtilisateur' => $idUtilisateur));
+    $sth->fetch();
+}*/
 
 //Fin
 
