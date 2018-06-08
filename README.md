@@ -13,3 +13,7 @@ Gestion complète des tutoriels
 On peut maintenant afficher les tutoriels\
 L'abonnement et le désabonnement fonctionnent\
 La page abonnement.php permet de voir les tutoriels auxquels l'utilisateur est abonné
+
+## 08.06.2018
+Sur la page pour voir ses abonnements, il y a maintenant un lien pour se désabonner\
+Ajout de la documentation
