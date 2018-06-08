@@ -140,9 +140,7 @@ if(filter_has_var(INPUT_POST, 'abonner')){
                 <div class="col-lg-12">
                     <div class="about-descr">
 
-                        <p class="separator">
-                            <?php echo html_entity_decode($tutoriel['contenu']); ?>
-                        </p>
+                        <?php echo html_entity_decode($tutoriel['contenu']); ?>
 
                     </div>
                 </div>

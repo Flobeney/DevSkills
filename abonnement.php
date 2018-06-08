@@ -108,6 +108,7 @@ $aucunTuto = (count($tutoriels) == 0) ? true : false;
                                         <p class="separator">
                                             Catégorie : <?php echo $value['nom']; ?>
                                             <br>Appuyez sur le tutoriel pour le consulter
+                                            <br><a href="desabonner.php?idTutoriel=<?php echo $value['id']; ?>" title="Se désabonner du tutoriel <?php echo $value['titre']; ?>">Se désabonner</a>
                                         </p>
                                     </div>
 
