@@ -16,8 +16,8 @@ if($_SESSION['logged']){
 
 //Variables
 $nom = (isset($_GET['nom'])) ? $_GET['nom'] : "";
-$erreur;
-$redirectionURL;
+$erreur = null;
+$redirectionURL = null;
 
 //Lors du click sur le bouton 'Connexion'
 if(filter_has_var(INPUT_POST, 'connexion')){
@@ -41,11 +41,7 @@ if(filter_has_var(INPUT_POST, 'connexion')){
             $_SESSION['admin'] = $login['admin'];
             $_SESSION['email'] = $login['email'];
             //La redirection ne sera pas la même si l'utilisateur est admin
-            if($_SESSION['admin']){
-                $redirectionURL = "admin.php";
-            }else{
-                $redirectionURL = "accueil.php";
-            }
+            $redirectionURL = ($_SESSION['admin']) ? "admin.php" : "accueil.php";
             //Rediriger l'utilisateur
             header("location:$redirectionURL");
             exit();

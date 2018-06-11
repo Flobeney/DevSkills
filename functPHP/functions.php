@@ -1,6 +1,9 @@
 <?php
 //Démarrer la session
 session_start();
+//Définir les variables de sessions qui seront utilisées
+$_SESSION['logged'] = (isset($_SESSION['logged'])) ? $_SESSION['logged'] : false;
+$_SESSION['admin'] = (isset($_SESSION['admin'])) ? $_SESSION['admin'] : false;
 //Ajouter le fichier PDO.php pour la connexion à la base de données
 require 'PDO.php';
 
@@ -503,16 +506,6 @@ function SupprimerAbonnement($idTutoriel, $idUtilisateur){
     $sth->execute(array(':idTutoriel' => $idTutoriel, ':idUtilisateur' => $idUtilisateur));
     $sth->fetch();
 }
-/*
-function InsererAbonnement($idTutoriel, $idUtilisateur){
-    //Construire la requête
-    $sql = "INSERT INTO `abonnement` (`id`, `idTutoriel`, `idUtilisateur`) VALUES (null, :idTutoriel, :idUtilisateur)";
-    //La préparer
-    $sth = connecteur()->prepare($sql);
-    //L'exécuter
-    $sth->execute(array(':idTutoriel' => $idTutoriel, ':idUtilisateur' => $idUtilisateur));
-    $sth->fetch();
-}*/
 
 //Fin
 

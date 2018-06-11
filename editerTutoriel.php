@@ -23,13 +23,13 @@ if(!($_SESSION['admin'])){
 
 //Variables
 $categories = GetCategories();
-$succes;
-$erreur;
+$succes = null;
+$erreur = null;
 $ajout = true;
-$titreTutoriel;
-$contenuTutoriel;
-$categorieTutoriel;
-$idTutoriel;
+$titreTutoriel = null;
+$contenuTutoriel = null;
+$categorieTutoriel = null;
+$idTutoriel = null;
 if(isset($_GET['idTutoriel'])){
     $ajout = false;
     //Récupérer le tutoriel à modifier

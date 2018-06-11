@@ -17,8 +17,8 @@ if(!($_SESSION['logged'])){
 //Variables
 //Récupérer les informations de l'utilisateur
 $infos = GetInfosUtilisateur($_SESSION['id'])[0];
-$succes;
-$erreur;
+$succes = null;
+$erreur = null;
 $emailActuel = $infos['email'];
 $nomActuel = $infos['nom'];
 $emailOK = false;

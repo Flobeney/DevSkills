@@ -7,8 +7,16 @@ define("DB_USER", "beneyf");
 define("DB_PASSWORD", "beneyf");
 //Salt généré aléatoirement par la fonction openssl_random_pseudo_bytes
 define("SALT", "b1cf170fa81a942c5c10046dd25f479cb0c9c2cb7680954e33c4151562d04a11");
+//Définir le niveau d'erreur
+error_reporting(E_ERROR);
 
-//La connexion à la base de données
+/**
+* La connexion à la base de données
+*
+* Cette fonction crée un objet PDO pour établir une connexion à la base de données
+*
+* @return objet une nouvelle instance de l'objet PDO
+*/
 function connecteur(){
     static $dbc = null;
 

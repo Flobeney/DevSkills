@@ -22,13 +22,13 @@ if(!($_SESSION['admin'])){
 }
 
 //Variables
-$succes;
-$erreur;
+$succes = null;
+$erreur = null;
 $ajout = true;
-$lienImageCategorie;
-$descriptionCategorie;
-$nomCategorie;
-$idCategorie;
+$lienImageCategorie = null;
+$descriptionCategorie = null;
+$nomCategorie = null;
+$idCategorie = null;
 if(isset($_GET['idCategorie'])){
     $ajout = false;
     //Récupérer la catégorie à modifier

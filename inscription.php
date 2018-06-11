@@ -15,10 +15,10 @@ if($_SESSION['logged']){
 }
 
 //Variables
-$nom;
-$email;
-$erreur;
-$succes;
+$nom = null;
+$email = null;
+$erreur = null;
+$succes = null;
 
 //Lors du click sur le bouton 'Inscription'
 if(filter_has_var(INPUT_POST, 'inscription')){
