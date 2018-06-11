@@ -17,3 +17,6 @@ La page abonnement.php permet de voir les tutoriels auxquels l'utilisateur est a
 ## 08.06.2018
 Sur la page pour voir ses abonnements, il y a maintenant un lien pour se désabonner\
 Ajout de la documentation
+
+## 11.06.2018
+Initialisation de certaines variables à null pour éviter des "Warnings" de PHP
