@@ -15,7 +15,7 @@ error_reporting(E_ERROR);
 *
 * Cette fonction crée un objet PDO pour établir une connexion à la base de données
 *
-* @return objet une nouvelle instance de l'objet PDO
+* @return objet une instance de l'objet PDO
 */
 function connecteur(){
     static $dbc = null;

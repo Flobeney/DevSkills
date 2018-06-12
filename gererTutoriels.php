@@ -116,7 +116,8 @@ $tutoriels = GetTutoriels();
                                         </a>
                                     </h4>
                                     <p class="separator">
-                                        Appuyez sur le tutoriel pour le modifier, ou suivez
+                                        Catégorie : <?php echo $value['nom']; ?>
+                                        <br>Appuyez sur le tutoriel pour le modifier, ou suivez
                                         <a href="supprimerTutoriel.php?idTutoriel=<?php echo $value['id']; ?>" title="Supprimer le tutoriel <?php echo $value['titre']; ?>">
                                             ce lien
                                         </a> pour le supprimer

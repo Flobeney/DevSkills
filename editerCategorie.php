@@ -69,6 +69,8 @@ if(filter_has_var(INPUT_POST, 'editer')){
             $nomCategorie = "";
             $ajout = true;
         }
+    }else{
+        $erreur = "Veuillez remplir tous les champs";
     }
 
 }
@@ -124,7 +126,7 @@ if(filter_has_var(INPUT_POST, 'editer')){
                         <p class="separator">
                             <?php
                             echo ($ajout)
-                            ? "Cette page permet d'ajout une nouvelle catégorie à laquelle les tutoriels pourront enusite faire parti"
+                            ? "Cette page permet d'ajout une nouvelle catégorie à laquelle les tutoriels pourront ensuite faire parti"
                             : "Cette page permet de modifier une catégorie existante"; ?>
                         </p>
 

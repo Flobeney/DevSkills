@@ -70,7 +70,7 @@ function NomDispo($nom){
     $sth->execute(array(':nom' => $nom));
     //Récupérer le résultat
     $array = $sth->fetchAll(PDO::FETCH_ASSOC);
-    //Si la requête retourne un résultat, c'est que l'email est déjà utilisé
+    //Si la requête retourne un résultat, c'est que le nom est déjà utilisé
     if($array != null){
         $res = false;
     }
@@ -219,11 +219,11 @@ function GetTutoriel($id){
 * Récupère dans la table 'tutoriel' les tutoriels d'une catégorie contenus en base
 *
 * @param int ID de la catégorie
-* @return array {id; titre; nom; lienImage} contenant les tutoriels
+* @return array {id; titre; nom} contenant les tutoriels
 */
 function GetTutorielByCategorie($id){
     //Construire la requête
-    $req = "SELECT tutoriel.id, titre, nom, lienImage
+    $req = "SELECT tutoriel.id, titre, nom
     FROM `tutoriel`, `categorie`
     WHERE idCategorie = categorie.id
     AND categorie.id = :id

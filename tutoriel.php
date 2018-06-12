@@ -23,13 +23,11 @@ $tutoriel = GetTutorielAvecAbo($idTutoriel, $_SESSION['id'])[0];
 if(filter_has_var(INPUT_POST, 'abonner')){
     if($tutoriel['abonne']){
         SupprimerAbonnement($idTutoriel, $_SESSION['id']);
-        header("location:tutoriel.php?idTutoriel=$idTutoriel");
-        exit();
     }else{
         InsererAbonnement($idTutoriel, $_SESSION['id']);
-        header("location:tutoriel.php?idTutoriel=$idTutoriel");
-        exit();
     }
+    header("location:tutoriel.php?idTutoriel=$idTutoriel");
+    exit();
 }
 
 ?>

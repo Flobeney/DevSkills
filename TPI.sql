@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 08 Juin 2018 à 14:37
+-- Généré le :  Mar 12 Juin 2018 à 14:34
 -- Version du serveur :  10.0.33-MariaDB-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.22-0ubuntu0.16.04.1
 
@@ -41,10 +41,10 @@ CREATE TABLE `abonnement` (
 INSERT INTO `abonnement` (`id`, `idTutoriel`, `idUtilisateur`) VALUES
 (1, 1, 1),
 (5, 3, 2),
-(6, 3, 1),
 (8, 1, 4),
 (9, 3, 4),
-(10, 5, 4);
+(10, 5, 4),
+(12, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -153,12 +153,12 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `abonnement`
 --
 ALTER TABLE `abonnement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `tutoriel`
 --
@@ -168,7 +168,7 @@ ALTER TABLE `tutoriel`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
