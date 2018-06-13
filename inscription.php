@@ -24,7 +24,7 @@ $succes = null;
 if(filter_has_var(INPUT_POST, 'inscription')){
 
     //Récupérer les infos
-    $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    $email = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
     $nom = trim(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING));
     $motDePasse = trim(filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_STRING));
     $motDePasseRepete = trim(filter_input(INPUT_POST, 'motDePasseRepete', FILTER_SANITIZE_STRING));

@@ -109,6 +109,8 @@ p {
   line-height: 50px;
   padding: 0 30px;
   text-transform: uppercase;
+  display: block;
+  width: auto;
 }
 
 .btn:hover, .btn:focus {
@@ -602,4 +604,21 @@ nav ul li a {
 
 .credits {
   font-size: 13px;
+}
+
+/*-----------------------------------------------------------------------------------*/
+/*  Modification faites par moi-même
+/*-----------------------------------------------------------------------------------*/
+
+.img-responsive{
+    height:auto;
+    min-width: 100%;
+}
+
+#abonnement{
+    background: #f7f7f7;
+}
+
+#abonnement input {
+  width: 100%;
 }

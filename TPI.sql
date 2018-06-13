@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 12 Juin 2018 à 14:34
+-- Généré le :  Mer 13 Juin 2018 à 14:28
 -- Version du serveur :  10.0.33-MariaDB-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.22-0ubuntu0.16.04.1
 
@@ -115,7 +115,7 @@ INSERT INTO `utilisateur` (`id`, `admin`, `nom`, `motDePasse`, `email`) VALUES
 (1, 1, 'flobeney', 'f13c2aba3f6a249f275ba280a4498b014088e89e9747f6dc82524af2975a2379', 'florent.bn@eduge.ch'),
 (2, 0, 'denis18', 'd7cb27bddb44ed4da8eecddf6da84de6aa5720070498197991a9d54d7199b404', 'denis.grmd@eduge.ch'),
 (3, 0, 'coco2012', 'd7cb27bddb44ed4da8eecddf6da84de6aa5720070498197991a9d54d7199b404', 'constantin.hrrmn@eduge.ch'),
-(4, 0, 'edward', 'd7cb27bddb44ed4da8eecddf6da84de6aa5720070498197991a9d54d7199b404', 'edwardryan@gmail.com');
+(4, 0, 'edward', 'f13c2aba3f6a249f275ba280a4498b014088e89e9747f6dc82524af2975a2379', 'edwardryan@gmail.com');
 
 --
 -- Index pour les tables exportées
@@ -163,7 +163,7 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT pour la table `tutoriel`
 --
 ALTER TABLE `tutoriel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --

@@ -55,21 +55,19 @@ if(filter_has_var(INPUT_POST, 'editer')){
             InsererTutoriel($titreTutoriel, $contenuTutoriel, $categorieTutoriel);
             //Afficher le message de succès
             $succes = "Le tutoriel a bien été ajouté. <a href=\"gererTutoriels.php\">Retour aux tutoriels</a>";
-            //Remettre les variables à une valeur nulle
-            $titreTutoriel = "";
-            $contenuTutoriel = "";
-            $categorieTutoriel = "";
         }else{
             //Sinon c'est une modification
             MajTutoriel($idTutoriel, $titreTutoriel, $contenuTutoriel, $categorieTutoriel);
             //Afficher le message de succès
             $succes = "Le tutoriel a bien été modifié. <a href=\"gererTutoriels.php\">Retour aux tutoriels</a>";
-            //Remettre les variables à une valeur nulle
-            $titreTutoriel = "";
-            $contenuTutoriel = "";
-            $categorieTutoriel = "";
             $ajout = true;
         }
+        //Remettre les variables à une valeur nulle
+        $titreTutoriel = "";
+        $contenuTutoriel = "";
+        $categorieTutoriel = "";
+    }else{
+        $erreur = "Veuillez remplir tous les champs";
     }
 
 }

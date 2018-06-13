@@ -28,7 +28,7 @@ $nomOK = false;
 if(filter_has_var(INPUT_POST, 'modifier')){
 
     //Récupérer les infos
-    $infos['email'] = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    $infos['email'] = trim(filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL));
     $infos['nom'] = trim(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING));
     $motDePasseActuel = trim(filter_input(INPUT_POST, 'motDePasseActuel', FILTER_SANITIZE_STRING));
     $nouveauMotDePasse = trim(filter_input(INPUT_POST, 'nouveauMotDePasse', FILTER_SANITIZE_STRING));
@@ -89,6 +89,9 @@ if(filter_has_var(INPUT_POST, 'modifier')){
                 //Afficher le message de succès
                 $succes = "Vos informations ont été modifiées avec succès";
             }
+            //Mettre à jour les variables de sessions
+            $_SESSION['nom'] = $nom;
+            $_SESSION['email'] = $login['email'];
         }
     }else{
         $erreur = "Veuillez remplir au moins les champs \"Nom\" et \"Email\"";

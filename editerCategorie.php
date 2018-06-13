@@ -54,21 +54,17 @@ if(filter_has_var(INPUT_POST, 'editer')){
             InsererCategorie($nomCategorie, $lienImageCategorie, $descriptionCategorie);
             //Afficher le message de succès
             $succes = "La catégorie a bien été ajoutée. <a href=\"gererCategories.php\">Retour aux catégories</a>";
-            //Remettre les variables à une valeur nulle
-            $lienImageCategorie = "";
-            $descriptionCategorie = "";
-            $nomCategorie = "";
         }else{
             //Sinon c'est une modification
             MajCategorie($idCategorie, $nomCategorie, $descriptionCategorie, $lienImageCategorie);
             //Afficher le message de succès
             $succes = "La catégorie a bien été modifiée. <a href=\"gererCategories.php\">Retour aux catégories</a>";
-            //Remettre les variables à une valeur nulle
-            $lienImageCategorie = "";
-            $descriptionCategorie = "";
-            $nomCategorie = "";
             $ajout = true;
         }
+        //Remettre les variables à une valeur nulle
+        $lienImageCategorie = "";
+        $descriptionCategorie = "";
+        $nomCategorie = "";
     }else{
         $erreur = "Veuillez remplir tous les champs";
     }
