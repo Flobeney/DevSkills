@@ -90,8 +90,8 @@ if(filter_has_var(INPUT_POST, 'modifier')){
                 $succes = "Vos informations ont été modifiées avec succès";
             }
             //Mettre à jour les variables de sessions
-            $_SESSION['nom'] = $nom;
-            $_SESSION['email'] = $login['email'];
+            $_SESSION['nom'] = $infos['nom'];
+            $_SESSION['email'] = $infos['email'];
         }
     }else{
         $erreur = "Veuillez remplir au moins les champs \"Nom\" et \"Email\"";

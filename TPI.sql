@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 13 Juin 2018 à 14:28
+-- Généré le :  Jeu 14 Juin 2018 à 14:32
 -- Version du serveur :  10.0.33-MariaDB-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.22-0ubuntu0.16.04.1
 
@@ -163,7 +163,7 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT pour la table `tutoriel`
 --
 ALTER TABLE `tutoriel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
